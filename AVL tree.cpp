@@ -63,29 +63,35 @@ AVLnode* DoubleRotateWithRight(AVLnode* K3){
   return SingleRotateWithRight(K3);
 }
 
+AVLnode* Balance(AVLnode * P){
+    if(Height(P->left)-Height(P->right)==2){
+        if(v<P->left->val){
+            P=SingleRotateWithLeft(P);
+        }else{
+            P=DoubleRotateWithLeft(P);
+        }
+        return P;
+    }
+    if(Height(P->right)-Height(P->left)==2){
+        if(v<P->right->val){
+            P=SingleRotateWithRight(P);
+        }else{
+            P=DoubleRotateWithRight(P);
+        }
+    }
+}
+
 AVLnode* Insert(T v, AVLnode* P){
   if(P==NULL){
     P=new AVLnode(v);
   }else{
     if(v<P->val){
       P->left=Insert(v,P->left);
-      if(Height(P->left)-Height(P->right)==2){
-        if(v<P->left->val){
-          P=SingleRotateWithLeft(P);
-        }else{
-          P=DoubleRotateWithLeft(P);
-        }
-      }
+      
     }else{
       if(v>P->val){
         P->right=Insert(v,P->right);
-        if(Height(P->right)-Height(P->left)==2){
-          if(v<P->right->val){
-            P=SingleRotateWithRight(P);
-          }else{
-            P=DoubleRotateWithRight(P);
-          }
-        }
+        
       }
     }
   }
